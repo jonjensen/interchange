@@ -2178,6 +2178,8 @@ sub parse_action {
 	$sub =~ s/^\s*([\000-\377]*\S)\s*//;
 	$sub = $1;
 
+	# clear errors for code paths below that don't call eval or reval
+	undef $@;
 	if($sub !~ /\s/) {
 		no strict 'refs';
 		if($sub =~ /::/ and ! $C) {
