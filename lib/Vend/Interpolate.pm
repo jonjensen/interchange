@@ -1,8 +1,6 @@
 # Vend::Interpolate - Interpret Interchange tags
 # 
-# $Id: Interpolate.pm,v 2.313 2009-05-01 13:50:00 pajamian Exp $
-#
-# Copyright (C) 2002-2008 Interchange Development Group
+# Copyright (C) 2002-2009 Interchange Development Group
 # Copyright (C) 1996-2002 Red Hat, Inc.
 #
 # This program was originally based on Vend 0.2 and 0.3
@@ -28,7 +26,7 @@ package Vend::Interpolate;
 require Exporter;
 @ISA = qw(Exporter);
 
-$VERSION = substr(q$Revision: 2.313 $, 10);
+$VERSION = '2.314';
 
 @EXPORT = qw (
 
@@ -1690,8 +1688,8 @@ sub tag_perl {
 	undef $MVSAFE::Safe;
 
 	if ($@) {
-#::logDebug("tag_perl failed $@");
 		my $msg = $@;
+#::logDebug("tag_perl failed $msg");
 		if($Vend::Try) {
 			$Vend::Session->{try}{$Vend::Try} .= "\n" 
 				if $Vend::Session->{try}{$Vend::Try};
@@ -4883,6 +4881,10 @@ sub tag_loop_list {
 				@rows = map { [ split /\Q$delim/, $_ ] } split /\Q$splittor/, $list;
 			};
 		}
+		else {
+			# clear errors since we didn't run an eval
+			undef $@;
+		}
 	}
 	elsif($opt->{acclist}) {
 #::logDebug("loop resolve acclist");
@@ -4916,8 +4918,9 @@ sub tag_loop_list {
 	}
 
 	if($@) {
-		logError("bad split delimiter in loop list: $@");
-#::logDebug("loop resolve error $@");
+		my $err = $@;
+		logError("bad split delimiter in loop list: $err");
+#::logDebug("loop resolve error $err");
 	}
 
 	# head_skip pulls rows off the top, and uses the last row to
