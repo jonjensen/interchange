@@ -1232,7 +1232,10 @@ sub save_more {
 #::logDebug("save_more: $id to Session DB.");
 #::logDebug("save_more:object:" . ::uneval($new));
 		my $db = Vend::Util::dbref($Vend::Cfg->{SessionDB});
-		$db->set_field($id, 'session', Vend::Util::uneval_fast($new));
+		my $key = $db->set_field($id, 'session', Vend::Util::uneval_fast($new));
+		# explicitly set $@ for check below because some exits from set_field()
+		# never set $@, and it's safer in general not to rely its internals
+		$@ = defined($key) ? undef : 1;
 	}
 	else {
 #::logDebug("save_more: $id to $file.");
