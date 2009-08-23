@@ -195,8 +195,8 @@ sub get_values {
 	foreach $area (qw!PREFERENCES CARTS!) {
 		my $f = $location->{$area};
 		if ($present->{$f}) {
-			my $s = $self->get_hash($area);
-			die ::errmsg("Bad structure in %s: %s", $f, $@) if $@;
+			my $s = $self->get_hash($area)
+                or die ::errmsg("Bad structure in %s: %s", $f, $self->{ERROR});
 			$::Values->{$f} = join "\n", sort keys %$s;
 		}
 	}
