@@ -3,9 +3,7 @@
 #
 # Interchange catalog configurator
 #
-# $Id: makecat.PL,v 2.28 2008-05-21 03:05:20 jon Exp $
-#
-# Copyright (C) 2002-2008 Interchange Development Group
+# Copyright (C) 2002-2009 Interchange Development Group
 # Copyright (C) 1996-2002 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -1715,9 +1713,6 @@ DOCOPY: {
 	eval {
 		copy_current_to_dir("$Conf{relocate}$Conf{catroot}");
 	};
-
-	umask(022) unless $Conf{noumask};
-
 	if($@) {
 		die <<EOF . "\n";
 There were errors in copying the demo files.  Cannot
@@ -1727,6 +1722,8 @@ The problem was:
 	$@
 EOF
 	}
+
+	umask(022) unless $Conf{noumask};
 
 	unless($prog eq 'NONE') {
 		File::Copy::copy( $prog, "$Conf{relocate}$Conf{catroot}/executable")
@@ -2300,10 +2297,6 @@ makecat - Build an Interchange catalog from a template
 =head1 SYNOPSIS
 
 makecat [--options] name
-
-=head1 VERSION
-
-# $Id: makecat.PL,v 2.28 2008-05-21 03:05:20 jon Exp $
 
 =head1 INTRODUCTION
 
