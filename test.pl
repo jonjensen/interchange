@@ -1,6 +1,6 @@
-# $Id: test.pl,v 2.6 2008-05-06 17:12:18 jon Exp $
+# test.pl - Interchange test script
 #
-# Copyright (C) 2002-2007 Interchange Development Group
+# Copyright (C) 2002-2009 Interchange Development Group
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -206,13 +206,14 @@ eval {
 	close (SOCK)								or die "close: $!\n";
 
 };
+my $err = $@;
 
 if(length($result) > 500 and $result =~ /test succeeded/i) {
 	print "ok $testnum\n";
 }
 else {
 	print "not ok $testnum";
-	print " ($@)" if $@;
+	print " ($err)" if $err;
 	print "\n";
 	print <<EOF;
 
