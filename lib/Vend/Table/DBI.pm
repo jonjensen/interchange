@@ -2026,11 +2026,10 @@ sub query {
 		}
 	};
 	if($@) {
+		my $origmsg = $@;
+
 		if(! $sth or ! defined $rc) {
 			# query failed, probably because no table
-
-			## Save the original message
-			my $origmsg = $@;
 
 			# Allow failed query by design, maybe to use multiple key inserts
 			return undef if $opt->{no_requery};
@@ -2070,7 +2069,7 @@ sub query {
 			}
 		}
 		else {
-			my $msg = ::errmsg("SQL query failed: %s\nquery was: %s", $@, $query);
+			my $msg = ::errmsg("SQL query failed: %s\nquery was: %s", $origmsg, $query);
 			$s->log_error($msg);
 			Carp::croak($msg) if $Vend::Try;
 			return undef;
