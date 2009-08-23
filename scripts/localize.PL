@@ -3,9 +3,7 @@
 #
 # Interchange localizer
 #
-# $Id: localize.PL,v 2.11 2007-08-09 13:40:57 pajamian Exp $
-#
-# Copyright (C) 2002-2007 Interchange Development Group
+# Copyright (C) 2002-2009 Interchange Development Group
 # Copyright (C) 1996-2002 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -88,9 +86,8 @@ one level. Subsequent .bak files will be overwritten.
 
 EOF
 
-getopts('cd:l:Mm:nostu:') or die "$USAGE\n";
+getopts('cd:l:Mm:nostu:') or die "$@\n$USAGE\n";
 
-die "$USAGE\n" if $@;
 die "$USAGE\n" unless $opt_l;
 die "$USAGE\n" if $opt_d && $opt_l eq $opt_d;
 
@@ -380,10 +377,6 @@ print $def_text;
 =head1 NAME
 
 localize -- produce Interchange localization file from set of pages
-
-=head1 VERSION
-
-# $Id: localize.PL,v 2.11 2007-08-09 13:40:57 pajamian Exp $
 
 =head1 SYNOPSIS
 
