@@ -1,8 +1,6 @@
 # Vend::Session - Interchange session routines
 #
-# $Id: Session.pm,v 2.31 2007-08-20 18:29:10 kwalsh Exp $
-# 
-# Copyright (C) 2002-2007 Interchange Development Group
+# Copyright (C) 2002-2009 Interchange Development Group
 # Copyright (C) 1996-2002 Red Hat, Inc.
 #
 # This program was originally based on Vend 0.2 and 0.3
@@ -27,7 +25,7 @@ package Vend::Session;
 require Exporter;
 
 use vars qw($VERSION);
-$VERSION = substr(q$Revision: 2.31 $, 10);
+$VERSION = '2.32';
 
 @ISA = qw(Exporter);
 
@@ -462,6 +460,8 @@ sub read_session {
 		
 #::logDebug ("Session:\n$s\n");
 	return new_session($seed) unless $s;
+
+    undef $@;
     $Vend::Session = ref $s ? $s : evalr($s);
     die "Could not eval '$s' from session dbm: $@\n" if $@;
 
