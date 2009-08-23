@@ -1,8 +1,6 @@
 # Vend::Table::DBI - Access a table stored in an DBI/DBD database
 #
-# $Id: DBI.pm,v 2.88 2008-06-30 23:09:53 jon Exp $
-#
-# Copyright (C) 2002-2008 Interchange Development Group
+# Copyright (C) 2002-2009 Interchange Development Group
 # Copyright (C) 1996-2002 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -21,7 +19,7 @@
 # MA  02110-1301  USA.
 
 package Vend::Table::DBI;
-$VERSION = substr(q$Revision: 2.88 $, 10);
+$VERSION = '2.89';
 
 use strict;
 no warnings qw(uninitialized numeric);
@@ -1320,8 +1318,6 @@ sub set_slice {
 		}
 	};
 
-#::logDebug("set_slice key: $val");
-
 	if($@) {
 		my $caller = caller();
 		$s->log_error(
@@ -1335,6 +1331,7 @@ sub set_slice {
 		return undef;
 	}
 
+#::logDebug("set_slice key: $val");
 	return $val;
 }
 
