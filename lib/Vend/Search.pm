@@ -1,8 +1,6 @@
 # Vend::Search - Base class for search engines
 #
-# $Id: Search.pm,v 2.38 2008-07-07 18:15:07 docelic Exp $
-#
-# Copyright (C) 2002-2008 Interchange Development Group
+# Copyright (C) 2002-2009 Interchange Development Group
 # Copyright (C) 1996-2002 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -22,7 +20,7 @@
 
 package Vend::Search;
 
-$VERSION = substr(q$Revision: 2.38 $, 10);
+$VERSION = '2.39';
 
 use strict;
 no warnings qw(uninitialized numeric);
@@ -954,8 +952,10 @@ EOF
 		::logDebug("filter function code is: $f")
 			if $Global::DebugFile and $CGI::values{debug};
 		use locale;
-		$f = eval $f if $f and ! ref $f;
-		die($@) if $@;
+		if ($f and ! ref $f) {
+			$f = eval $f;
+			die($@) if $@;
+		}
 		my $relate;
 		if(scalar @code > 1) {
 			$relate = 'return ( ';
