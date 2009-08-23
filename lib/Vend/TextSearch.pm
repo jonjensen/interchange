@@ -1,10 +1,8 @@
 # Vend::TextSearch - Search indexes with Perl
 #
-# $Id: TextSearch.pm,v 2.18 2008-07-11 12:07:55 racke Exp $
-#
 # Adapted for use with Interchange from Search::TextSearch
 #
-# Copyright (C) 2002-2008 Interchange Development Group
+# Copyright (C) 2002-2009 Interchange Development Group
 # Copyright (C) 1996-2002 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -29,7 +27,7 @@ require Exporter;
 use vars qw(@ISA);
 @ISA = qw(Vend::Search);
 
-$VERSION = substr(q$Revision: 2.18 $, 10);
+$VERSION = '2.19';
 
 use Search::Dict;
 use strict;
@@ -146,6 +144,8 @@ sub search {
 
 	@pats = $s->spec_check(@specs);
 
+	# clear errors for non-eval code paths
+	undef $@;
 	if ($s->{mv_coordinate}) {
 		undef $f;
 	}
@@ -166,7 +166,6 @@ sub search {
 											),
 										@pats					)};
 	}
-
 	$@  and  return $s->search_error("Function creation: $@");
 	
 	local($/) = $s->{mv_record_delim} || "\n";
