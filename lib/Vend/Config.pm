@@ -1,6 +1,6 @@
 # Vend::Config - Configure Interchange
 #
-# Copyright (C) 2002-2011 Interchange Development Group
+# Copyright (C) 2002-2013 Interchange Development Group
 # Copyright (C) 1996-2002 Red Hat, Inc.
 #
 # This program was originally based on Vend 0.2 and 0.3
@@ -53,7 +53,7 @@ use Vend::Data;
 use Vend::Cron;
 use Vend::CharSet ();
 
-$VERSION = '2.247';
+$VERSION = '2.248';
 
 my %CDname;
 my %CPname;
@@ -713,6 +713,7 @@ sub catalog_directives {
 	['CartTriggerQuantity',	'yesno',		 'no'],
     ['UserTrack',        'yesno',            'no'],
 	['DebugHost',	     'ip_address_regexp',	''],
+	['SuppressCachedCookies', 'yesno',       'no'],
 	['BounceReferrals',  'yesno',            'no'],
 	['BounceReferralsRobot', 'yesno',        'no'],
 	['BounceRobotSessionURL',		 'yesno', 'no'],
